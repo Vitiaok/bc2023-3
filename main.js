@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile('/Web-Server/lab3/bc2023-3/data.json', (err, data) => {
+fs.readFile('data.json', (err, data) => {
 
   if (err === null) {
     console.log(data.toString());
@@ -29,7 +29,7 @@ fs.readFile('/Web-Server/lab3/bc2023-3/data.json', (err, data) => {
   //const content of object;
   let finalcontent =(`Доходи, всього:${content}\nВитрати, всього:${content1}`);
   
-  fs.writeFile('/Web-Server/lab3/bc2023-3/output.txt', finalcontent, err => {
+  fs.writeFile('output.txt', finalcontent, err => {
     if (err) {
       console.error(err);
     }
