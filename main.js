@@ -12,21 +12,30 @@ fs.readFile('data.json', (err, data) => {
     
   
   const object = JSON.parse(data);
-  let n =0;
-  while(object[n].id_api != "BS2_IncomeTotal")
-  {
-    n++;
+  //let n =0;
+  for(let i=0; i<1000; i++){
+   if(object[i].id_api == "BS2_IncomeTotal")
+    {
+    content = (object[i].value).toString() ;
+     break;
+    }
     
   }
-  let content = (object[n].value).toString() ;
-  let k=0;
-  while(object[k].id_api != "BS2_ExpensesTotal")
-  {
-    k++;
-  }
-  let content1 = (object[k].value).toString();
-  //let content1 = object[14].value;
-  //const content of object;
+  for(let k=0; k<1000; k++){
+    if(object[k].id_api == "BS2_ExpensesTotal")
+     {
+      content1 = (object[k].value).toString() ;
+      break;
+     }
+     
+   }
+  
+
+
+  
+    
+  
+  
   let finalcontent =(`Доходи, всього:${content}\nВитрати, всього:${content1}`);
   
   fs.writeFile('output.txt', finalcontent, err => {
