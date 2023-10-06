@@ -13,18 +13,18 @@ fs.readFile('data.json', (err, data) => {
   
   const object = JSON.parse(data);
   //let n =0;
-  for(let i=0; i<1000; i++){
-   if(object[i].id_api == "BS2_IncomeTotal")
+  for(const item of object){
+   if(item.id_api === "BS2_IncomeTotal")
     {
-    content = (object[i].value).toString() ;
+     content = (item.value);
      break;
     }
     
   }
-  for(let k=0; k<1000; k++){
-    if(object[k].id_api == "BS2_ExpensesTotal")
+  for(const item of object){
+    if(item.id_api === "BS2_ExpensesTotal")
      {
-      content1 = (object[k].value).toString() ;
+      content1 = (item.value);
       break;
      }
      
