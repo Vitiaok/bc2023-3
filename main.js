@@ -1,47 +1,25 @@
 const fs = require('fs');
-
-fs.readFile('data.json', (err, data) => {
-
-  if (err === null) {
-    console.log(data.toString());
-    }
-    else
-    {
-        console.error(err);
-    }
-    
-  
-  const object = JSON.parse(data);
-  //let n =0;
-  for(const item of object){
-   if(item.id_api === "BS2_IncomeTotal")
-    {
-     content = (item.value);
-     break;
-    }
-    
+fs.readFile('data.json', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Помилка читання файлу:', err);
+    return;
   }
-  for(const item of object){
-    if(item.id_api === "BS2_ExpensesTotal")
-     {
-      content1 = (item.value);
-      break;
-     }
-     
-   }
-  
-
-
-  
-    
-  
-  
-  let finalcontent =(`Доходи, всього:${content}\nВитрати, всього:${content1}`);
-  
-  fs.writeFile('output.txt', finalcontent, err => {
-    if (err) {
-      console.error(err);
+  try {
+    const object= JSON.parse(data);
+    const result = {};
+    for (const item of object) {
+      if (item.txt === 'Доходи, усього' || item.txt === 'Витрати, усього') {
+        result[item.txt] = item.value;
+      }
     }
-    
-  });
+    fs.writeFile('output.txt', `Доходи, усього: ${result['Доходи, усього']}\nВитрати, усього:${result['Витрати, усього']}`, (err) => {
+        if (err) {
+          console.error('Помилка запису у файл:', err);
+          return;
+        }
+        console.log('Результати записано у файл output.txt');
+      });      
+  } catch (error) {
+    console.error('Помилка обробки JSON:', error);
+  }
 });
